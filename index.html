@@ -1,23 +1,473 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Test GIF</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide FreeCAD - Démonstrations Interactives</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c5aa0, #3a6bc2);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .freecad-logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ff6b35;
+        }
+        
+        .accordion {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .accordion-item {
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .accordion-header {
+            padding: 20px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8fafc;
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background-color: #edf2f7;
+        }
+        
+        .accordion-header.active {
+            background-color: #e1e8f0;
+            border-left: 5px solid #2c5aa0;
+        }
+        
+        .accordion-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .accordion-icon {
+            font-size: 1.2rem;
+            color: #2c5aa0;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-header.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background-color: white;
+        }
+        
+        .accordion-content.active {
+            max-height: 1000px;
+            padding: 30px;
+        }
+        
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .demo-gif {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .demo-description {
+            background-color: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2c5aa0;
+        }
+        
+        .demo-description h3 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .demo-description p {
+            margin-bottom: 10px;
+        }
+        
+        .demo-description ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .demo-description li {
+            margin-bottom: 8px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .badge-beginner {
+            background-color: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .badge-intermediate {
+            background-color: #bee3f8;
+            color: #2a4365;
+        }
+        
+        .badge-advanced {
+            background-color: #fed7d7;
+            color: #742a2a;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .instructions {
+            background-color: #fffaf0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff6b35;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 15px 20px;
+            }
+            
+            .accordion-title {
+                font-size: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .demo-container {
+                gap: 15px;
+            }
+            
+            .demo-description {
+                padding: 15px;
+            }
+            
+            .accordion-content.active {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Test du GIF</h1>
-    <img src="output.gif" alt="Test GIF">
-    <p>Taille: <span id="size"></span></p>
-    
-    <script>
-        const img = document.querySelector('img');
-        console.log('Dimensions:', img.naturalWidth, 'x', img.naturalHeight);
+    <div class="container">
+        <header>
+            <div class="freecad-logo">
+                <i class="fas fa-cube"></i>
+            </div>
+            <h1>Guide FreeCAD</h1>
+            <p class="subtitle">Un guide interactif avec démonstrations pas à pas. Cliquez sur les titres pour déplier les tutoriels et voir les démonstrations en GIF.</p>
+        </header>
         
-        fetch('output.gif')
-            .then(r => r.blob())
-            .then(blob => {
-                document.getElementById('size').textContent = 
-                    (blob.size / 1024).toFixed(2) + ' KB';
+        <div class="instructions">
+            <i class="fas fa-info-circle"></i> Cliquez sur un titre pour afficher/masquer la démonstration correspondante. Chaque section contient une animation GIF et des explications détaillées.
+        </div>
+        
+        <div class="accordion">
+            <!-- Item 1 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header1">
+                    <div class="accordion-title">
+                        <i class="fas fa-drafting-compass accordion-icon"></i>
+                        <span>Création d'une esquisse 2D</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-beginner">Débutant</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content1">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXBhcHEycGt4MWN1czk5ZTR2eXJ4cW9sN2lzd2lhNDNnczhwNTFobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Y2Y1p0tJHpzyh1pt2k/giphy.gif" alt="Création d'une esquisse 2D dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Création d'une esquisse 2D</h3>
+                            <p>La création d'une esquisse (sketch) est la première étape pour modéliser un objet 3D dans FreeCAD. Cette démonstration montre comment :</p>
+                            <ul>
+                                <li>Sélectionner un plan de référence (XY, XZ ou YZ)</li>
+                                <li>Créer des formes géométriques de base (lignes, rectangles, cercles)</li>
+                                <li>Ajouter des contraintes dimensionnelles et géométriques</li>
+                                <li>Fermer l'esquisse pour la convertir en objet 3D</li>
+                            </ul>
+                            <p><strong>Conseil :</strong> Utilisez les contraintes pour fixer les dimensions exactes de votre esquisse avant de passer à l'extrusion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header2">
+                    <div class="accordion-title">
+                        <i class="fas fa-cube accordion-icon"></i>
+                        <span>Extrusion d'un profil 2D en 3D</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-beginner">Débutant</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content2">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWp5aXIyZXNpZzJ6eXI5NW5lYzd5ZzVsaWEwYnF1dW1hY2I0a3A5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d3OcCfrBpP8lqC6s0/giphy.gif" alt="Extrusion d'un profil 2D en 3D dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Extrusion d'un profil 2D en 3D (Pad)</h3>
+                            <p>L'extrusion, appelée "Pad" dans FreeCAD, permet de donner du volume à une esquisse 2D. Cette démonstration illustre :</p>
+                            <ul>
+                                <li>Sélection de l'esquisse à extruder</li>
+                                <li>Paramétrage de la longueur d'extrusion</li>
+                                <li>Options d'extrusion symétrique par rapport au plan</li>
+                                <li>Inclinaison (taper) pour créer des formes coniques</li>
+                            </ul>
+                            <p><strong>À noter :</strong> Vous pouvez extruder dans les deux directions avec des longueurs différentes pour créer des formes complexes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header3">
+                    <div class="accordion-title">
+                        <i class="fas fa-cut accordion-icon"></i>
+                        <span>Création de trous et de poches</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-intermediate">Intermédiaire</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content3">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM29pdXA0eXl2dDZpaGk3cTdrb3htbG50YnhpNzZ1Z3VqamZ4N2NxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTlwB5X1UQzrUZi/giphy.gif" alt="Création de trous et de poches dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Création de trous et de poches (Pocket)</h3>
+                            <p>La fonction "Pocket" permet de retirer de la matière à partir d'une esquisse 2D. Cette démonstration montre comment :</p>
+                            <ul>
+                                <li>Créer une esquisse sur une face existante</li>
+                                <li>Utiliser la fonction "Pocket" pour enlever de la matière</li>
+                                <li>Paramétrer la profondeur de la poche</li>
+                                <li>Créer des trous traversants ou partiels</li>
+                            </ul>
+                            <p><strong>Astuce :</strong> Vous pouvez combiner plusieurs poches pour créer des formes complexes comme des engrenages ou des motifs décoratifs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header4">
+                    <div class="accordion-title">
+                        <i class="fas fa-redo-alt accordion-icon"></i>
+                        <span>Révolution d'un profil 2D</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-intermediate">Intermédiaire</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content4">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmZ3Y3dlczZvZm95NjJ6M2l2bWtucHgwYWM4cWNxM2dyd2JlcXJ3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gJvIgYb8BkH6Vdx0Pz/giphy.gif" alt="Révolution d'un profil 2D dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Révolution d'un profil 2D (Revolve)</h3>
+                            <p>La révolution permet de créer des objets symétriques par rotation (comme des vases, des roues, etc.). Cette démonstration illustre :</p>
+                            <ul>
+                                <li>Création d'un profil 2D à faire tourner</li>
+                                <li>Sélection de l'axe de révolution</li>
+                                <li>Paramétrage de l'angle de révolution (partiel ou complet)</li>
+                                <li>Création de pièces symétriques comme des poulies ou des douilles</li>
+                            </ul>
+                            <p><strong>Application :</strong> Cette fonction est idéale pour créer des pièces de révolution comme des boulons, des roulements, ou des contenants cylindriques.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header5">
+                    <div class="accordion-title">
+                        <i class="fas fa-layer-group accordion-icon"></i>
+                        <span>Assemblage de pièces multiples</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-advanced">Avancé</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content5">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDVyZzVpdmgyNHg3NzA0dGd5em14eGYyNDRjZXZtaTV1b3BqaDFsOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhOtu5MktHkA0/giphy.gif" alt="Assemblage de pièces multiples dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Assemblage de pièces multiples (Assembly)</h3>
+                            <p>FreeCAD permet d'assembler plusieurs pièces pour créer des mécanismes complexes. Cette démonstration montre comment :</p>
+                            <ul>
+                                <li>Importer plusieurs pièces dans un assemblage</li>
+                                <li>Utiliser les contraintes d'assemblage (coïncidence, distance, parallélisme, etc.)</li>
+                                <li>Créer des sous-assemblages</li>
+                                <li>Vérifier les interférences entre pièces</li>
+                            </ul>
+                            <p><strong>Pour aller plus loin :</strong> Avec l'atelier Assembly4, vous pouvez créer des assemblages paramétriques avec des mouvements contraints pour simuler le fonctionnement d'un mécanisme.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="accordion-item">
+                <div class="accordion-header" id="header6">
+                    <div class="accordion-title">
+                        <i class="fas fa-file-export accordion-icon"></i>
+                        <span>Exportation pour impression 3D</span>
+                    </div>
+                    <div>
+                        <span class="badge badge-intermediate">Intermédiaire</span>
+                        <i class="fas fa-chevron-right accordion-icon"></i>
+                    </div>
+                </div>
+                <div class="accordion-content" id="content6">
+                    <div class="demo-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWFreHQ1OGtqdjU3a3Mzb2U0MnVrdzJ1bWUwcmRkYnZwZW1jbnZvaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR2W6jv+gOdlmre/giphy.gif" alt="Exportation pour impression 3D dans FreeCAD" class="demo-gif">
+                        <div class="demo-description">
+                            <h3>Exportation pour impression 3D (STL, OBJ)</h3>
+                            <p>Une fois votre modèle 3D terminé, vous devez l'exporter dans un format compatible avec les logiciels d'impression 3D. Cette démonstration illustre :</p>
+                            <ul>
+                                <li>Vérification de la solidité du modèle (modèle fermé sans trous)</li>
+                                <li>Exportation au format STL (Standard Tessellation Language)</li>
+                                <li>Paramètres d'exportation (tolérance, précision du maillage)</li>
+                                <li>Exportation sélective de certaines pièces uniquement</li>
+                            </ul>
+                            <p><strong>Vérification importante :</strong> Avant d'exporter, assurez-vous que votre modèle est un solide fermé (Menu "Affichage" → "Vérification de la géométrie") pour éviter les problèmes lors de l'impression.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Guide FreeCAD interactif - Démonstrations en GIF animé</p>
+            <p>© 2023 - Pour un apprentissage pas à pas de FreeCAD</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                <i class="fas fa-exclamation-circle"></i> Les GIFs utilisés sont à titre d'illustration. Pour des démonstrations réelles, remplacez-les par vos propres captures d'écran animées.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer tous les en-têtes d'accordéon
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            // Ajouter un gestionnaire d'événement à chaque en-tête
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    // Récupérer l'élément de contenu associé
+                    const contentId = this.id.replace('header', 'content');
+                    const content = document.getElementById(contentId);
+                    
+                    // Fermer tous les autres éléments ouverts
+                    accordionHeaders.forEach(otherHeader => {
+                        if (otherHeader !== this) {
+                            const otherContentId = otherHeader.id.replace('header', 'content');
+                            const otherContent = document.getElementById(otherContentId);
+                            otherHeader.classList.remove('active');
+                            otherContent.classList.remove('active');
+                        }
+                    });
+                    
+                    // Basculer l'état de l'élément cliqué
+                    this.classList.toggle('active');
+                    content.classList.toggle('active');
+                });
             });
+            
+            // Ouvrir le premier élément par défaut
+            if (accordionHeaders.length > 0) {
+                accordionHeaders[0].click();
+            }
+        });
     </script>
 </body>
 </html>
