@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test GIF</title>
+</head>
+<body>
+    <h1>Test du GIF</h1>
+    <img src="output.gif" alt="Test GIF">
+    <p>Taille: <span id="size"></span></p>
+    
+    <script>
+        const img = document.querySelector('img');
+        console.log('Dimensions:', img.naturalWidth, 'x', img.naturalHeight);
+        
+        fetch('output.gif')
+            .then(r => r.blob())
+            .then(blob => {
+                document.getElementById('size').textContent = 
+                    (blob.size / 1024).toFixed(2) + ' KB';
+            });
+    </script>
+</body>
+</html>
