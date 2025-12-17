@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide FreeCAD - Démonstrations Interactives</title>
+    <title>Guide FreeCAD Complet - Tutoriels Interactifs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -18,6 +18,7 @@
             color: #333;
             line-height: 1.6;
             padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
@@ -28,11 +29,37 @@
         header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, #2c5aa0, #3a6bc2);
             color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .logo-container {
+            font-size: 4rem;
+            color: #ff6b35;
+            background-image: url('Freecad_logo_large.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            
+            width: 70%;
+            height: 200px;
+            margin: 0 auto;
+
+        }
+        
+        .header-text {
+            max-width: 700px;
+            text-align: left;
         }
         
         h1 {
@@ -42,23 +69,33 @@
         
         .subtitle {
             font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
+            opacity: 0.95;
         }
         
-        .freecad-logo {
-            font-size: 3rem;
-            margin-bottom: 15px;
+        .instructions {
+            background-color: #fffaf0;
+            padding: 18px 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ff6b35;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .instructions i {
             color: #ff6b35;
+            font-size: 1.2rem;
+            margin-top: 3px;
         }
         
         .accordion {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .accordion-item {
@@ -70,13 +107,13 @@
         }
         
         .accordion-header {
-            padding: 20px 30px;
+            padding: 22px 35px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #f8fafc;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .accordion-header:hover {
@@ -85,7 +122,7 @@
         
         .accordion-header.active {
             background-color: #e1e8f0;
-            border-left: 5px solid #2c5aa0;
+            border-left: 6px solid #2c5aa0;
         }
         
         .accordion-title {
@@ -94,13 +131,13 @@
             color: #2d3748;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
         }
         
         .accordion-icon {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #2c5aa0;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
         
         .accordion-header.active .accordion-icon {
@@ -110,59 +147,88 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, padding 0.3s ease;
+            transition: max-height 0.6s ease, padding 0.4s ease;
             background-color: white;
         }
         
         .accordion-content.active {
-            max-height: 1000px;
-            padding: 30px;
+            max-height: 5000px;
+            padding: 35px;
         }
         
         .demo-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
         }
         
+        .demo-row {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .demo-gif-container {
+            width:100%;
+            margin : 0 auto;
+            /*flex: 1;*/
+            min-width: 300px;
+        }
+        .demo-gif-container img{
+            width:100%;
+        }
         .demo-gif {
             width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid #e2e8f0;
             display: block;
-            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .demo-gif:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
         .demo-description {
+            /*flex: 1;*/
+            min-width: 300px;
             background-color: #f7fafc;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #2c5aa0;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #2c5aa0;
         }
         
         .demo-description h3 {
             color: #2c5aa0;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .demo-description p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
         }
         
-        .demo-description ul {
-            padding-left: 20px;
-            margin-top: 10px;
+        .demo-description ul, .demo-description ol {
+            padding-left: 25px;
+            margin-top: 15px;
+            margin-bottom: 20px;
         }
         
         .demo-description li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
         }
         
         .badge {
             display: inline-block;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
@@ -185,27 +251,349 @@
             color: #742a2a;
         }
         
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tool-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .tool-item h4 {
+            color: #2c5aa0;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .key-shortcut {
+            display: inline-block;
+            background-color: #edf2f7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        
+        .controls-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f1f5f9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            min-width: 200px;
+        }
+        
+        .control-icon {
+            font-size: 1.5rem;
+            color: #2c5aa0;
+        }
+        
+        /* Galerie d'images dans les sections */
+        .gallery-section {
+            margin-top: 30px;
+        }
+        
+        .gallery-title {
+            color: #2c5aa0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(44, 90, 160, 0.85);
+            color: white;
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+         /* Lightbox / Modal pour afficher les images en grand - MODIFIÉ */
+         .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            flex-direction: column;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .lightbox-header {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            margin-bottom: 15px;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .lightbox-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        
+        .lightbox-subtitle {
+            font-size: 1rem;
+            color: #cccccc;
+            opacity: 0.9;
+        }
+        
+        .lightbox-content-container {
+            width:100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            max-height: 80%;
+        }
+        
+        .lightbox-img {
+            width: 90%;
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            animation: zoomIn 0.3s ease;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .lightbox-footer {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            margin-top: 15px;
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            padding: 0 20px;
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+        
+        .close-lightbox:hover {
+            color: #ff6b35;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            padding: 15px;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .prev-btn:hover, .next-btn:hover {
+            background-color: rgba(44, 90, 160, 0.8);
+        }
+        
+        .prev-btn {
+            left: 30px;
+        }
+        
+        .next-btn {
+            right: 30px;
+        }
+        
+        .image-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
+            margin-top: 60px;
+            padding: 25px;
             color: #718096;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #2c5aa0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Style pour les sous-sections avec images */
+        .sub-section {
+            margin-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid #e2e8f0;
         }
         
-        .instructions {
-            background-color: #fffaf0;
-            padding: 15px 20px;
+        .sub-section h4 {
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sub-section-images {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .sub-section-img {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
             border-radius: 8px;
-            margin-bottom: 25px;
-            border-left: 4px solid #ff6b35;
-            font-size: 0.95rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .sub-section-img:hover {
+            transform: scale(1.03);
+        }
+        
+        .sub-section-img img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .img-caption {
+            padding: 12px;
+            background-color: #f1f5f9;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #2d3748;
         }
         
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-text {
+                text-align: center;
+            }
+            
             .accordion-header {
-                padding: 15px 20px;
+                padding: 18px 20px;
             }
             
             .accordion-title {
@@ -216,16 +604,44 @@
                 font-size: 2.2rem;
             }
             
-            .demo-container {
-                gap: 15px;
+            .demo-row {
+                flex-direction: column;
             }
             
             .demo-description {
-                padding: 15px;
+                padding: 20px;
             }
             
             .accordion-content.active {
-                padding: 20px;
+                padding: 25px;
+            }
+            
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .prev-btn, .next-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .prev-btn {
+                left: 15px;
+            }
+            
+            .next-btn {
+                right: 15px;
+            }
+            
+            .close-lightbox {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
             }
         }
     </style>
@@ -233,24 +649,38 @@
 <body>
     <div class="container">
         <header>
-            <div class="freecad-logo">
-                <i class="fas fa-cube"></i>
+            <div class="header-content">
+                <div class="logo-container">
+
+                    <!--<i class="fas fa-cube"></i>-->
+                </div>
+                <div class="header-text">
+                    <h1>Guide FreeCAD Complet</h1>
+                    <p class="subtitle">Un tutoriel interactif avec galerie d'images. Cliquez sur les titres pour déplier les sections, et sur les images pour les voir en grand.</p>
+                </div>
             </div>
-            <h1>Guide FreeCAD</h1>
-            <p class="subtitle">Un guide interactif avec démonstrations pas à pas. Cliquez sur les titres pour déplier les tutoriels et voir les démonstrations en GIF.</p>
         </header>
         
         <div class="instructions">
-            <i class="fas fa-info-circle"></i> Cliquez sur un titre pour afficher/masquer la démonstration correspondante. Chaque section contient une animation GIF et des explications détaillées.
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <strong>Comment utiliser ce guide :</strong> 
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Cliquez sur un titre pour afficher la section correspondante</li>
+                    <li>Cliquez sur une image ou un GIF pour l'afficher en plein écran</li>
+                    <li>Utilisez les flèches dans le mode plein écran pour naviguer entre les images</li>
+                    <li>Cliquez en dehors de l'image ou sur la croix pour fermer le mode plein écran</li>
+                </ul>
+            </div>
         </div>
         
         <div class="accordion">
-            <!-- Item 1 -->
+            <!-- Section 1: Navigation -->
             <div class="accordion-item">
                 <div class="accordion-header" id="header1">
                     <div class="accordion-title">
-                        <i class="fas fa-drafting-compass accordion-icon"></i>
-                        <span>Création d'une esquisse 2D</span>
+                        <i class="fas fa-compass accordion-icon"></i>
+                        <span>Navigation dans l'espace 3D</span>
                     </div>
                     <div>
                         <span class="badge badge-beginner">Débutant</span>
@@ -259,28 +689,61 @@
                 </div>
                 <div class="accordion-content" id="content1">
                     <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXBhcHEycGt4MWN1czk5ZTR2eXJ4cW9sN2lzd2lhNDNnczhwNTFobiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Y2Y1p0tJHpzyh1pt2k/giphy.gif" alt="Création d'une esquisse 2D dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Création d'une esquisse 2D</h3>
-                            <p>La création d'une esquisse (sketch) est la première étape pour modéliser un objet 3D dans FreeCAD. Cette démonstration montre comment :</p>
-                            <ul>
-                                <li>Sélectionner un plan de référence (XY, XZ ou YZ)</li>
-                                <li>Créer des formes géométriques de base (lignes, rectangles, cercles)</li>
-                                <li>Ajouter des contraintes dimensionnelles et géométriques</li>
-                                <li>Fermer l'esquisse pour la convertir en objet 3D</li>
-                            </ul>
-                            <p><strong>Conseil :</strong> Utilisez les contraintes pour fixer les dimensions exactes de votre esquisse avant de passer à l'extrusion.</p>
+                        <div class="demo-row">
+                            <div class="demo-gif-container">
+                                <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="Rotation avec touche Alt enfoncée">
+                                    <source src="optimized_mp4/NaviationModeTouchpad_optimized.mp4" type="video/mp4">
+                                </video>
+                                <!--<img src="gifs/NaviationModeTouchpad.gif"> -->
+                            </div>
+                            <div class="demo-description">
+                                <h3><i class="fas fa-compass"></i> Navigation dans l'espace 3D avec le réglage TouchPad</h3>
+
+                    
+                                <p>Voici les commandes de base navigation avec le réglage TouchPad activé</p>
+                                
+                                <div class="sub-section">
+                                    <!--<h4><i class="fas fa-sync-alt"></i> Techniques de rotation</h4>
+                                    <p>La rotation permet d'examiner votre modèle sous tous les angles. Différentes méthodes sont disponibles :</p>-->
+                                    
+                                    <div class="sub-section-images">
+                                        <div class="sub-section-img" data-img="gifs/NavigationOrbit.gif" data-caption="Rotation avec touche Alt enfoncée">
+                                            <!-- <img src="gifs/NavigationOrbit.gif"><div class="img-caption">Rotation avec touche Alt enfoncée</div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif">
+                                                <source src="optimized_mp4/NavigationOrbit_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">Rotation avec touche Alt enfoncée</div>
+                                        </div>
+                                        
+                                        <div class="sub-section-img" data-img="gifs/NavigationPanning.gif" data-caption="Déplacement sur les cotés avec touche SHIFT enfoncée">
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="Déplacement sur les cotés avec touche SHIFT enfoncée">
+                                                <source src="optimized_mp4/NavigationPanning_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">Déplacement sur les cotés avec touche SHIFT enfoncée</div>
+                                        </div>
+                                        
+                                        <div class="sub-section-img" data-img="gifs/NavigationZooming.gif">
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="Zoom avant et arrière avec la molette central de la souris">
+                                                <source src="optimized_mp4/NavigationZooming_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">Zoom avant et arrière avec la molette central de la souris</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Item 2 -->
+
+            <!-- Section 1: Navigation -->
             <div class="accordion-item">
                 <div class="accordion-header" id="header2">
                     <div class="accordion-title">
-                        <i class="fas fa-cube accordion-icon"></i>
-                        <span>Extrusion d'un profil 2D en 3D</span>
+                        <i class="fas fa-drafting-compass accordion-icon"></i>
+                        <span>Création d'un pneu pas à pas ( 7 étapes )</span>
                     </div>
                     <div>
                         <span class="badge badge-beginner">Débutant</span>
@@ -289,185 +752,448 @@
                 </div>
                 <div class="accordion-content" id="content2">
                     <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWp5aXIyZXNpZzJ6eXI5NW5lYzd5ZzVsaWEwYnF1dW1hY2I0a3A5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d3OcCfrBpP8lqC6s0/giphy.gif" alt="Extrusion d'un profil 2D en 3D dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Extrusion d'un profil 2D en 3D (Pad)</h3>
-                            <p>L'extrusion, appelée "Pad" dans FreeCAD, permet de donner du volume à une esquisse 2D. Cette démonstration illustre :</p>
-                            <ul>
-                                <li>Sélection de l'esquisse à extruder</li>
-                                <li>Paramétrage de la longueur d'extrusion</li>
-                                <li>Options d'extrusion symétrique par rapport au plan</li>
-                                <li>Inclinaison (taper) pour créer des formes coniques</li>
-                            </ul>
-                            <p><strong>À noter :</strong> Vous pouvez extruder dans les deux directions avec des longueurs différentes pour créer des formes complexes.</p>
+                        <div class="demo-row">
+                            <div class="demo-gif-container">
+                                <!-- <img src="gifs/CreationPneuSketch_01.gif"> -->
+                                <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="01 dessin profil partie haute">
+                                    <source src="optimized_mp4/CreationPneuSketch_01_optimized.mp4" type="video/mp4">
+                                </video>
+                                <!-- <div class="img-caption">Rotation avec touche Alt enfoncée</div> -->
+                            </div>
+                            <div class="demo-description">
+                                <h3><i class="fas fa-compass"></i> Création d'un pneu pas à pas ( navigation TouchPad )</h3>
+
+                    
+                                <p>Voici le pas à pas pour un créer un sketch de profil de pneu puis une révolution autour d'un axe</p>
+                                
+                                
+                                <div class="sub-section">
+                                    <!--<h4><i class="fas fa-sync-alt"></i> Techniques de rotation</h4>
+                                    <p>La rotation permet d'examiner votre modèle sous tous les angles. Différentes méthodes sont disponibles :</p>-->
+                                    
+                                    <div class="sub-section-images">
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_01.gif" data-caption="01 dessin profil partie haute">
+                                            <!-- <img src="gifs/CreationPneuSketch_01.gif"><div class="img-caption">01 dessin profil partie haute</div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="01 dessin profil partie haute">
+                                                <source src="optimized_mp4/CreationPneuSketch_01_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">01 dessin profil partie haute</div>
+                                        </div>
+                                        
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_02.gif" data-caption="02 contraintes horizontale et verticale">
+                                            <!-- <img src="gifs/CreationPneuSketch_02.gif"> <div class="img-caption">02 contraintes horizontale et verticale</div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="02 contraintes horizontale et verticale">
+                                                <source src="optimized_mp4/CreationPneuSketch_02_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">02 contraintes horizontale et verticale</div>
+                                        </div>
+                                        
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_03.gif" data-caption="03 dessin arc de cercle">
+                                            <!-- <img src="gifs/CreationPneuSketch_03.gif"><div class="img-caption">03 dessin arc de cercle </div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="03 dessin arc de cercle">
+                                                <source src="optimized_mp4/CreationPneuSketch_03_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">03 dessin arc de cercle</div>
+                                        </div>
+
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_04.gif" data-caption="04 contraintes cotations longueur ">
+                                            <!-- <img src="gifs/CreationPneuSketch_04.gif"><div class="img-caption">04 contraintes cotations longueur </div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="04 contraintes cotations longueur ">
+                                                <source src="optimized_mp4/CreationPneuSketch_04_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">04 contraintes cotations longueur</div>
+                                        </div>
+
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_05.gif" data-caption="05 contraintes origine courbure">
+                                            <!-- <img src="gifs/CreationPneuSketch_05.gif"><div class="img-caption">05 contraintes origine courbure </div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="05 contraintes origine courbure">
+                                                <source src="optimized_mp4/CreationPneuSketch_05_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">05 contraintes origine courbure</div>
+                                        </div>
+
+                                        <div class="sub-section-img" data-img="gifs/CreationPneuSketch_06.gif" data-caption="06 dessin point de construction">
+                                            <!-- <img src="gifs/CreationPneuSketch_06.gif"><div class="img-caption">06 dessin point de construction </div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="06 dessin point de construction">
+                                                <source src="optimized_mp4/CreationPneuSketch_06_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">06 dessin point de construction</div>
+                                        </div>
+
+                                        <div class="sub-section-img" data-img="optimized_mp4/CreationPneuSketch_07_optimized.mp4" data-caption="07 revolution du profil">
+                                            <!-- <img src="gifs/CreationPneuSketch_07.gif"><div class="img-caption">07 revolution du profil</div> -->
+                                            <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="07 revolution du profil">
+                                                <source src="optimized_mp4/CreationPneuSketch_07_optimized.mp4" type="video/mp4">
+                                            </video>
+                                            <div class="img-caption">07 revolution du profil</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Item 3 -->
-            <div class="accordion-item">
-                <div class="accordion-header" id="header3">
-                    <div class="accordion-title">
-                        <i class="fas fa-cut accordion-icon"></i>
-                        <span>Création de trous et de poches</span>
-                    </div>
-                    <div>
-                        <span class="badge badge-intermediate">Intermédiaire</span>
-                        <i class="fas fa-chevron-right accordion-icon"></i>
-                    </div>
-                </div>
-                <div class="accordion-content" id="content3">
-                    <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM29pdXA0eXl2dDZpaGk3cTdrb3htbG50YnhpNzZ1Z3VqamZ4N2NxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4pTlwB5X1UQzrUZi/giphy.gif" alt="Création de trous et de poches dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Création de trous et de poches (Pocket)</h3>
-                            <p>La fonction "Pocket" permet de retirer de la matière à partir d'une esquisse 2D. Cette démonstration montre comment :</p>
-                            <ul>
-                                <li>Créer une esquisse sur une face existante</li>
-                                <li>Utiliser la fonction "Pocket" pour enlever de la matière</li>
-                                <li>Paramétrer la profondeur de la poche</li>
-                                <li>Créer des trous traversants ou partiels</li>
-                            </ul>
-                            <p><strong>Astuce :</strong> Vous pouvez combiner plusieurs poches pour créer des formes complexes comme des engrenages ou des motifs décoratifs.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Item 4 -->
-            <div class="accordion-item">
-                <div class="accordion-header" id="header4">
-                    <div class="accordion-title">
-                        <i class="fas fa-redo-alt accordion-icon"></i>
-                        <span>Révolution d'un profil 2D</span>
-                    </div>
-                    <div>
-                        <span class="badge badge-intermediate">Intermédiaire</span>
-                        <i class="fas fa-chevron-right accordion-icon"></i>
-                    </div>
-                </div>
-                <div class="accordion-content" id="content4">
-                    <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmZ3Y3dlczZvZm95NjJ6M2l2bWtucHgwYWM4cWNxM2dyd2JlcXJ3eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gJvIgYb8BkH6Vdx0Pz/giphy.gif" alt="Révolution d'un profil 2D dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Révolution d'un profil 2D (Revolve)</h3>
-                            <p>La révolution permet de créer des objets symétriques par rotation (comme des vases, des roues, etc.). Cette démonstration illustre :</p>
-                            <ul>
-                                <li>Création d'un profil 2D à faire tourner</li>
-                                <li>Sélection de l'axe de révolution</li>
-                                <li>Paramétrage de l'angle de révolution (partiel ou complet)</li>
-                                <li>Création de pièces symétriques comme des poulies ou des douilles</li>
-                            </ul>
-                            <p><strong>Application :</strong> Cette fonction est idéale pour créer des pièces de révolution comme des boulons, des roulements, ou des contenants cylindriques.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Item 5 -->
+            <!-- Section 5: Révolution -->
             <div class="accordion-item">
                 <div class="accordion-header" id="header5">
                     <div class="accordion-title">
-                        <i class="fas fa-layer-group accordion-icon"></i>
-                        <span>Assemblage de pièces multiples</span>
+                        <i class="fas fa-redo-alt accordion-icon"></i>
+                        <span>Sauvegarder document</span>
                     </div>
                     <div>
-                        <span class="badge badge-advanced">Avancé</span>
+                        <span class="badge badge-beginner">Débutant</span>
                         <i class="fas fa-chevron-right accordion-icon"></i>
                     </div>
                 </div>
                 <div class="accordion-content" id="content5">
                     <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDVyZzVpdmgyNHg3NzA0dGd5em14eGYyNDRjZXZtaTV1b3BqaDFsOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhOtu5MktHkA0/giphy.gif" alt="Assemblage de pièces multiples dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Assemblage de pièces multiples (Assembly)</h3>
-                            <p>FreeCAD permet d'assembler plusieurs pièces pour créer des mécanismes complexes. Cette démonstration montre comment :</p>
-                            <ul>
-                                <li>Importer plusieurs pièces dans un assemblage</li>
-                                <li>Utiliser les contraintes d'assemblage (coïncidence, distance, parallélisme, etc.)</li>
-                                <li>Créer des sous-assemblages</li>
-                                <li>Vérifier les interférences entre pièces</li>
-                            </ul>
-                            <p><strong>Pour aller plus loin :</strong> Avec l'atelier Assembly4, vous pouvez créer des assemblages paramétriques avec des mouvements contraints pour simuler le fonctionnement d'un mécanisme.</p>
+                        <div class="demo-row">
+                            <div class="demo-gif-container">
+                                <!-- <img src="gifs/DocumentSave.gif" alt="DocumentSave" class="demo-gif" data-caption="Sauvegarder son document"> -->
+                                <video autoplay loop muted playsinline preload="auto" class="demo-gif" data-caption="Sauvegarder un document">
+                                    <source src="optimized_mp4/DocumentSave_optimized.mp4" type="video/mp4">
+                                </video>
+                            
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Item 6 -->
-            <div class="accordion-item">
-                <div class="accordion-header" id="header6">
-                    <div class="accordion-title">
-                        <i class="fas fa-file-export accordion-icon"></i>
-                        <span>Exportation pour impression 3D</span>
-                    </div>
-                    <div>
-                        <span class="badge badge-intermediate">Intermédiaire</span>
-                        <i class="fas fa-chevron-right accordion-icon"></i>
-                    </div>
-                </div>
-                <div class="accordion-content" id="content6">
-                    <div class="demo-container">
-                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWFreHQ1OGtqdjU3a3Mzb2U0MnVrdzJ1bWUwcmRkYnZwZW1jbnZvaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR2W6jv+gOdlmre/giphy.gif" alt="Exportation pour impression 3D dans FreeCAD" class="demo-gif">
-                        <div class="demo-description">
-                            <h3>Exportation pour impression 3D (STL, OBJ)</h3>
-                            <p>Une fois votre modèle 3D terminé, vous devez l'exporter dans un format compatible avec les logiciels d'impression 3D. Cette démonstration illustre :</p>
-                            <ul>
-                                <li>Vérification de la solidité du modèle (modèle fermé sans trous)</li>
-                                <li>Exportation au format STL (Standard Tessellation Language)</li>
-                                <li>Paramètres d'exportation (tolérance, précision du maillage)</li>
-                                <li>Exportation sélective de certaines pièces uniquement</li>
-                            </ul>
-                            <p><strong>Vérification importante :</strong> Avant d'exporter, assurez-vous que votre modèle est un solide fermé (Menu "Affichage" → "Vérification de la géométrie") pour éviter les problèmes lors de l'impression.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Les autres sections continueraient de la même manière... -->
+            
         </div>
         
         <footer>
-            <p>Guide FreeCAD interactif - Démonstrations en GIF animé</p>
-            <p>© 2023 - Pour un apprentissage pas à pas de FreeCAD</p>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                <i class="fas fa-exclamation-circle"></i> Les GIFs utilisés sont à titre d'illustration. Pour des démonstrations réelles, remplacez-les par vos propres captures d'écran animées.
+            <p><strong>Guide FreeCAD Interactif</strong> - Tutoriels pas à pas avec galerie d'images</p>
+            <p>© 2023 - Pour maîtriser la modélisation paramétrique avec FreeCAD</p>
+            
+            <div class="footer-links">
+                <a href="https://www.freecad.org" class="footer-link" target="_blank">Site officiel FreeCAD</a>
+                <a href="https://wiki.freecad.org" class="footer-link" target="_blank">Wiki FreeCAD</a>
+                <a href="https://forum.freecad.org" class="footer-link" target="_blank">Forum d'entraide</a>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 0.85rem; color: #a0aec0;">
+                <i class="fas fa-exclamation-circle"></i> Cliquez sur les images pour les voir en grand. Utilisez les flèches pour naviguer entre les images.
             </p>
         </footer>
     </div>
 
+    <!-- Lightbox / Modal MODIFIÉ pour afficher les images en grand -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <span class="close-lightbox" id="closeLightbox">&times;</span>
+        <div class="prev-btn" id="prevBtn">&#10094;</div>
+        <div class="next-btn" id="nextBtn">&#10095;</div>
+        
+        <div class="lightbox-content-container">
+            <div class="lightbox-header">
+                <div class="lightbox-title" id="lightboxTitle">Titre de l'image</div>
+                <div class="lightbox-subtitle" id="lightboxSubtitle">Section : Navigation 3D</div>
+            </div>
+            
+            <img class="lightbox-img" id="lightboxImg" alt="Image en plein écran">
+            
+            <div class="lightbox-footer">
+                <div id="lightboxDescription">Description détaillée de l'image et de ce qu'elle montre</div>
+            </div>
+        </div>
+        
+        <div class="image-counter" id="imageCounter">1 / 10</div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Récupérer tous les en-têtes d'accordéon
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de l'accordéon
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    let activeHeader = null;
+    
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const contentId = this.id.replace('header', 'content');
+            const content = document.getElementById(contentId);
             
-            // Ajouter un gestionnaire d'événement à chaque en-tête
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    // Récupérer l'élément de contenu associé
-                    const contentId = this.id.replace('header', 'content');
-                    const content = document.getElementById(contentId);
-                    
-                    // Fermer tous les autres éléments ouverts
-                    accordionHeaders.forEach(otherHeader => {
-                        if (otherHeader !== this) {
-                            const otherContentId = otherHeader.id.replace('header', 'content');
-                            const otherContent = document.getElementById(otherContentId);
-                            otherHeader.classList.remove('active');
-                            otherContent.classList.remove('active');
-                        }
-                    });
-                    
-                    // Basculer l'état de l'élément cliqué
-                    this.classList.toggle('active');
-                    content.classList.toggle('active');
-                });
-            });
-            
-            // Ouvrir le premier élément par défaut
-            if (accordionHeaders.length > 0) {
-                accordionHeaders[0].click();
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                content.classList.remove('active');
+                activeHeader = null;
+            } else {
+                if (activeHeader) {
+                    const activeContentId = activeHeader.id.replace('header', 'content');
+                    const activeContent = document.getElementById(activeContentId);
+                    activeHeader.classList.remove('active');
+                    activeContent.classList.remove('active');
+                }
+                
+                this.classList.add('active');
+                content.classList.add('active');
+                activeHeader = this;
             }
         });
+    });
+    
+    if (accordionHeaders.length > 0) {
+        accordionHeaders[0].click();
+    }
+    
+    // ============================================
+    // CORRECTION : CHAQUE VIDÉO A SON PROPRE INDEX
+    // ============================================
+    
+    // Gestion de la lightbox MP4 uniquement
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxSubtitle = document.getElementById('lightboxSubtitle');
+    const lightboxDescription = document.getElementById('lightboxDescription');
+    const imageCounter = document.getElementById('imageCounter');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    // Collecter UNIQUEMENT les vidéos MP4 et leur attribuer un index
+    const videoElements = document.querySelectorAll('video');
+    let videosData = [];
+    let currentVideoIndex = 0;
+    
+    // Préparer les données des vidéos avec index unique
+    videoElements.forEach((videoElement, index) => {
+        // Trouver la source MP4
+        const sourceElement = videoElement.querySelector('source[type="video/mp4"]');
+        if (!sourceElement) return;
+        
+        const mp4Src = sourceElement.src;
+        if (!mp4Src || !mp4Src.match(/\.mp4$/i)) return;
+        
+        // Stocker l'index sur l'élément vidéo
+        videoElement.setAttribute('data-video-index', index);
+        
+        // Récupérer les informations
+        let caption = videoElement.getAttribute('data-caption') || 
+                     videoElement.closest('.sub-section-img')?.getAttribute('data-caption') ||
+                     videoElement.closest('.demo-gif-container')?.querySelector('h3')?.textContent ||
+                     'Démonstration vidéo';
+        
+        // Récupérer la description
+        let description = '';
+        const captionElement = videoElement.closest('.sub-section-img')?.querySelector('.img-caption');
+        if (captionElement) {
+            description = captionElement.textContent;
+        } else {
+            // Chercher une description dans les paragraphes proches
+            const parentDesc = videoElement.closest('.demo-description');
+            if (parentDesc) {
+                const firstP = parentDesc.querySelector('p');
+                description = firstP ? firstP.textContent.substring(0, 150) + '...' : 'Vidéo de démonstration';
+            }
+        }
+        
+        // Trouver le nom de la section
+        let sectionName = 'FreeCAD';
+        const accordionItem = videoElement.closest('.accordion-item');
+        if (accordionItem) {
+            const accordionTitle = accordionItem.querySelector('.accordion-title span');
+            sectionName = accordionTitle ? accordionTitle.textContent : 'FreeCAD';
+        }
+        
+        videosData.push({
+            src: mp4Src,
+            title: caption,
+            section: sectionName,
+            description: description,
+            element: videoElement,
+            index: index
+        });
+        
+        // CORRECTION : Utiliser closure pour capturer l'index correct
+        videoElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Récupérer l'index depuis l'attribut data
+            const clickedIndex = parseInt(this.getAttribute('data-video-index'));
+            if (!isNaN(clickedIndex)) {
+                currentVideoIndex = clickedIndex;
+                openMp4Lightbox(currentVideoIndex);
+            }
+        });
+        
+        // Masquer les images GIF fallback
+        const fallbackImg = videoElement.querySelector('img[src*=".gif"]');
+        if (fallbackImg) {
+            fallbackImg.style.display = 'none';
+        }
+    });
+    
+    console.log(`${videosData.length} vidéos MP4 trouvées`);
+    
+    // Créer l'élément vidéo pour la lightbox
+    const lightboxVideo = document.createElement('video');
+    lightboxVideo.id = 'lightboxVideoPlayer';
+    lightboxVideo.className = 'lightbox-img';
+    lightboxVideo.controls = true;
+    lightboxVideo.autoplay = true;
+    lightboxVideo.style.display = 'none';
+    
+    const lightboxSource = document.createElement('source');
+    lightboxVideo.appendChild(lightboxSource);
+    lightboxImg.parentNode.insertBefore(lightboxVideo, lightboxImg.nextSibling);
+    
+    // Fonction pour ouvrir la lightbox MP4
+    function openMp4Lightbox(index) {
+        if (videosData.length === 0 || index < 0 || index >= videosData.length) {
+            console.error('Index invalide:', index);
+            return;
+        }
+        
+        currentVideoIndex = index;
+        const currentVideo = videosData[currentVideoIndex];
+        
+        console.log('Ouverture vidéo index:', index, 'src:', currentVideo.src);
+        
+        // Cacher l'image de la lightbox (pour GIF)
+        lightboxImg.style.display = 'none';
+        
+        // Configurer et afficher la vidéo
+        lightboxSource.src = currentVideo.src;
+        lightboxSource.type = 'video/mp4';
+        lightboxVideo.load();
+        
+        // Afficher la vidéo
+        lightboxVideo.style.display = 'block';
+        
+        // Essayer de jouer automatiquement
+        const playPromise = lightboxVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Lecture automatique bloquée, affichage des contrôles");
+                lightboxVideo.controls = true;
+            });
+        }
+        
+        // Mettre à jour les informations textuelles
+        lightboxTitle.textContent = currentVideo.title || 'Vidéo';
+        lightboxSubtitle.textContent = currentVideo.section ? `Section : ${currentVideo.section}` : 'FreeCAD';
+        lightboxDescription.textContent = currentVideo.description || 'Vidéo de démonstration';
+        imageCounter.textContent = `${currentVideoIndex + 1} / ${videosData.length}`;
+        
+        // Afficher la lightbox
+        lightboxModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Fonction pour fermer la lightbox
+    function closeLightboxFunc() {
+        lightboxModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Arrêter et réinitialiser la vidéo
+        if (lightboxVideo) {
+            lightboxVideo.pause();
+            lightboxVideo.currentTime = 0;
+            lightboxVideo.style.display = 'none';
+        }
+        lightboxImg.style.display = 'block'; // Remettre l'image par défaut
+    }
+    
+    // Fonction pour vidéo suivante
+    function showNextVideo() {
+        currentVideoIndex = (currentVideoIndex + 1) % videosData.length;
+        updateLightboxVideo();
+    }
+    
+    // Fonction pour vidéo précédente
+    function showPrevVideo() {
+        currentVideoIndex = (currentVideoIndex - 1 + videosData.length) % videosData.length;
+        updateLightboxVideo();
+    }
+    
+    // Mettre à jour la vidéo dans la lightbox
+    function updateLightboxVideo() {
+        if (videosData.length === 0) return;
+        
+        const currentVideo = videosData[currentVideoIndex];
+        
+        lightboxSource.src = currentVideo.src;
+        lightboxSource.type = 'video/mp4';
+        lightboxVideo.load();
+        
+        const playPromise = lightboxVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Lecture automatique bloquée");
+            });
+        }
+        
+        lightboxTitle.textContent = currentVideo.title;
+        lightboxSubtitle.textContent = `Section : ${currentVideo.section}`;
+        lightboxDescription.textContent = currentVideo.description;
+        imageCounter.textContent = `${currentVideoIndex + 1} / ${videosData.length}`;
+    }
+    
+    // Événements de la lightbox
+    closeLightbox.addEventListener('click', closeLightboxFunc);
+    prevBtn.addEventListener('click', showPrevVideo);
+    nextBtn.addEventListener('click', showNextVideo);
+    
+    // Fermer en cliquant à l'extérieur
+    lightboxModal.addEventListener('click', function(e) {
+        if (e.target === lightboxModal) {
+            closeLightboxFunc();
+        }
+    });
+    
+    // Navigation au clavier
+    document.addEventListener('keydown', function(e) {
+        if (lightboxModal.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightboxFunc();
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                showNextVideo();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevVideo();
+                e.preventDefault();
+            }
+        }
+    });
+    
+    // Gestion de la fin de vidéo
+    lightboxVideo.addEventListener('ended', function() {
+        // Optionnel : passer à la vidéo suivante automatiquement
+        // showNextVideo();
+    });
+    
+    // ============================================
+    // CACHER LES GIFS
+    // ============================================
+    
+    // Masquer toutes les images GIF dans la page
+    setTimeout(() => {
+        document.querySelectorAll('img[src*=".gif"]').forEach(gifImg => {
+            gifImg.style.display = 'none';
+        });
+    }, 100);
+    
+    // Fermer l'accordéon en cliquant à l'extérieur
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.accordion')) {
+            if (activeHeader) {
+                const activeContentId = activeHeader.id.replace('header', 'content');
+                const activeContent = document.getElementById(activeContentId);
+                activeHeader.classList.remove('active');
+                activeContent.classList.remove('active');
+                activeHeader = null;
+            }
+        }
+    });
+});
+
+
     </script>
 </body>
 </html>
